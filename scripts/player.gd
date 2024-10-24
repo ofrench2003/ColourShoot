@@ -3,6 +3,7 @@ extends CharacterBody2D
 enum {RED,GREEN,BLUE}
 
 @export var bulletscene: PackedScene
+var dying = false
 var colour = RED
 # Declare member variables here. Examples:
 # var a = 2
@@ -21,43 +22,43 @@ func _physics_process(delta):
 	var left = Input.is_action_pressed("left")
 	var right = Input.is_action_pressed("right")
 	
-	if up:
+	if up and not dying:
 		if left and not right:
 			look_at(get_parent().get_node("points/point1").position)
 		elif right and not left:
 			look_at(get_parent().get_node("points/point3").position)
 		else:
 			look_at(get_parent().get_node("points/point2").position)
-	if down:
+	if down and not dying:
 		if left and not right:
 			look_at(get_parent().get_node("points/point7").position)
 		elif right and not left:
 			look_at(get_parent().get_node("points/point5").position)
 		else:
 			look_at(get_parent().get_node("points/point6").position)
-	if left and not up and not down:
+	if left and not up and not down and not dying:
 		look_at(get_parent().get_node("points/point8").position)
-	if right and not up and not down:
+	if right and not up and not down and not dying:
 		look_at(get_parent().get_node("points/point4").position)
 	
 	
 	
 	#shooting
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and not dying:
 		fireweapon()
 	
 	#changing colour
-	if Input.is_action_just_pressed("red"):
+	if Input.is_action_just_pressed("red") and not dying:
 		colour = RED
 		fireweapon()
-	if Input.is_action_just_pressed("blue"):
+	if Input.is_action_just_pressed("blue") and not dying:
 		colour = BLUE
 		fireweapon()
-	if Input.is_action_just_pressed("green"):
+	if Input.is_action_just_pressed("green") and not dying:
 		colour = GREEN
 		fireweapon()
 
-	if Input.is_action_just_pressed("swap"):
+	if Input.is_action_just_pressed("swap") and not dying:
 		match colour:
 			RED:
 				colour = GREEN
@@ -88,3 +89,16 @@ func fireweapon():
 	get_parent().add_child(bullet)
 	bullet.position = Vector2(bulletloc, bullety)
 	bullet.linear_velocity = velocity2.rotated(direction)
+
+func kill():
+	$AnimatedSprite2D.hide()
+	$CollisionShape2D.disabled = true
+	match colour:
+		RED:
+			$deathParticles.color = Color(1, 0, 0)
+		GREEN:
+			$deathParticles.color = Color(0, 1, 0)
+		BLUE:
+			$deathParticles.color = Color(0, 0, 1)
+	$deathParticles.emitting = true
+	

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bygv0yy6ub70f"]
 
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://bkbe3agnbi8ax" path="res://scenes/player.tscn" id="1"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://bs502v65r6atd" path="res://scenes/circle.tscn" id="3"]
 [ext_resource type="Script" path="res://scenes/points.gd" id="4"]
@@ -44,7 +44,7 @@ position = Vector2(-149.405, -129.75)
 rotation = 0.00487556
 
 [node name="spawntimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 2.0
 one_shot = true
 autostart = true
 

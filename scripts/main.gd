@@ -52,4 +52,4 @@ func _on_spawntimer_timeout():
 
 func _on_progression_timer_timeout():
 	spawnTime -= 0.1
-	
+	enemySpeed += 5

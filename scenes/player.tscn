@@ -1,46 +1,68 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://bkbe3agnbi8ax"]
 
-[ext_resource path="res://assets/triangle/green.png" type="Texture2D" id=1]
-[ext_resource path="res://assets/triangle/blue.png" type="Texture2D" id=2]
-[ext_resource path="res://assets/triangle/red.png" type="Texture2D" id=3]
-[ext_resource path="res://scripts/player.gd" type="Script" id=4]
-[ext_resource path="res://scenes/bullet.tscn" type="PackedScene" id=5]
+[ext_resource type="Texture2D" uid="uid://i44v87psftjm" path="res://assets/triangle/green.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bn5ylrkocmn2p" path="res://assets/triangle/blue.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dktunfy4r3jbh" path="res://assets/triangle/red.png" id="3"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://ctymmc6od05cy" path="res://scenes/bullet.tscn" id="5"]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 2 ) ],
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2")
+}],
 "loop": true,
-"name": "blue",
+"name": &"blue",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}],
 "loop": true,
-"name": "green",
+"name": &"green",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}],
 "loop": true,
-"name": "red",
+"name": &"red",
 "speed": 5.0
-} ]
+}]
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 524292
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-bulletscene = ExtResource( 5 )
+script = ExtResource("4")
+bulletscene = ExtResource("5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2( 2, 0 )
+position = Vector2(2, 0)
 rotation = 1.5708
-frames = SubResource( 1 )
-animation = "red"
+sprite_frames = SubResource("1")
+animation = &"red"
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 rotation = 1.5708
-polygon = PackedVector2Array( 14.8482, 9.8802, -15.6113, 10.1451, 0.0157318, -16.6064 )
+polygon = PackedVector2Array(14.8482, 9.8802, -15.6113, 10.1451, 0.0157318, -16.6064)
 
 [node name="bulletposition" type="Marker2D" parent="."]
-position = Vector2( 16, 0 )
+position = Vector2(16, 0)
+
+[node name="deathParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 60
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 150.0
+angle_min = -720.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
