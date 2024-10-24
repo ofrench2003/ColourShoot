@@ -45,6 +45,11 @@ rotation = 0.00487556
 
 [node name="spawntimer" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="progressionTimer" type="Timer" parent="."]
+wait_time = 10.0
 autostart = true
 
 [node name="points" type="Node2D" parent="."]
@@ -77,3 +82,4 @@ position = Vector2(0, 360)
 environment = SubResource("Environment_8qoey")
 
 [connection signal="timeout" from="spawntimer" to="." method="_on_spawntimer_timeout"]
+[connection signal="timeout" from="progressionTimer" to="." method="_on_progression_timer_timeout"]

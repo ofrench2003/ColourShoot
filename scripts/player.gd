@@ -49,10 +49,13 @@ func _physics_process(delta):
 	#changing colour
 	if Input.is_action_just_pressed("red"):
 		colour = RED
+		fireweapon()
 	if Input.is_action_just_pressed("blue"):
 		colour = BLUE
+		fireweapon()
 	if Input.is_action_just_pressed("green"):
 		colour = GREEN
+		fireweapon()
 
 	if Input.is_action_just_pressed("swap"):
 		match colour:
