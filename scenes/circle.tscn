@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://bs502v65r6atd"]
+
+[ext_resource type="Texture2D" uid="uid://dn6mosa42em74" path="res://assets/circle/green.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://coandqvhu8yy5" path="res://assets/circle/red.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bbqmmt1f1fscd" path="res://assets/circle/blue.png" id="3"]
+[ext_resource type="Script" path="res://scripts/circle.gd" id="4"]
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}],
+"loop": true,
+"name": &"blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}],
+"loop": true,
+"name": &"green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2")
+}],
+"loop": true,
+"name": &"red",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="2"]
+radius = 16.5751
+
+[node name="circle" type="RigidBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 3
+gravity_scale = 0.0
+script = ExtResource("4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("1")
+animation = &"red"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
