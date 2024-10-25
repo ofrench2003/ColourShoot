@@ -67,7 +67,6 @@ func _physics_process(delta):
 			BLUE:
 				colour = RED
 	
-	
 	match colour:
 		RED:
 			$AnimatedSprite2D.animation = "red"
@@ -75,6 +74,10 @@ func _physics_process(delta):
 			$AnimatedSprite2D.animation = "green"
 		BLUE:
 			$AnimatedSprite2D.animation = "blue"
+	
+	#restarting
+	if Input.is_action_just_pressed("restart") and dying:
+		get_tree().reload_current_scene()
 	
 func fireweapon():
 	
@@ -91,8 +94,10 @@ func fireweapon():
 	bullet.linear_velocity = velocity2.rotated(direction)
 
 func kill():
+	dying = true
 	$AnimatedSprite2D.hide()
-	$CollisionShape2D.disabled = true
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(3, false)
 	match colour:
 		RED:
 			$deathParticles.color = Color(1, 0, 0)
@@ -102,3 +107,7 @@ func kill():
 			$deathParticles.color = Color(0, 0, 1)
 	$deathParticles.emitting = true
 	
+
+
+func _on_death_particles_finished():
+	pass # Replace with function body.

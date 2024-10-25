@@ -14,5 +14,5 @@ func _ready():
 func get_point():
 	randomize()
 	var count = get_child_count()
-	point = get_child(randf_range(0, count - 1))
+	point = get_child(randi_range(0, count - 1))
 	return point.position

@@ -1,0 +1,104 @@
+[gd_scene load_steps=8 format=3 uid="uid://dt3y7lqjqvaxf"]
+
+[ext_resource type="Script" path="res://scenes/square.gd" id="1_eabri"]
+[ext_resource type="Texture2D" uid="uid://cr5w6y43epsvg" path="res://assets/square/blue.png" id="1_facso"]
+[ext_resource type="Texture2D" uid="uid://du4bymqaydaua" path="res://assets/square/green.png" id="2_3li30"]
+[ext_resource type="Texture2D" uid="uid://cenwoc41qvit8" path="res://assets/square/red.png" id="3_wn1bl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3u30l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_facso")
+}],
+"loop": true,
+"name": &"blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3li30")
+}],
+"loop": true,
+"name": &"green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wn1bl")
+}],
+"loop": true,
+"name": &"red",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fnvr2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_facso")
+}],
+"loop": true,
+"name": &"blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3li30")
+}],
+"loop": true,
+"name": &"green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wn1bl")
+}],
+"loop": true,
+"name": &"red",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ngb0"]
+size = Vector2(32, 32)
+
+[node name="square" type="RigidBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 3
+gravity_scale = 0.0
+script = ExtResource("1_eabri")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3u30l")
+animation = &"red"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+sprite_frames = SubResource("SpriteFrames_fnvr2")
+animation = &"green"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2ngb0")
+
+[node name="deathParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 150.0
+angle_min = -720.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="finished" from="deathParticles" to="." method="_on_death_particles_finished"]
