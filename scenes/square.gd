@@ -1,12 +1,10 @@
 extends RigidBody2D
 
-enum {RED, GREEN, BLUE}
 
-
-@export var firstColour = RED
-@export var secondColour = RED
-var colours = [RED, GREEN, BLUE]
-@export var colour = RED
+var firstColour
+var secondColour
+var colours = ["red", "green", "blue"]
+var colour
 var lastColour = false
 
 
@@ -16,25 +14,24 @@ func _ready():
 	randomize()
 	colours.shuffle()
 	firstColour = colours[0]
-	colours.shuffle()
-	secondColour = colours[0]
 	colour = firstColour
+	secondColour = colours[1]
 
 
 func _physics_process(_delta):
 	match secondColour:
-		RED:
+		"red":
 			$AnimatedSprite2D.animation = "red"
-		GREEN:
+		"green":
 			$AnimatedSprite2D.animation = "green"
-		BLUE:
+		"blue":
 			$AnimatedSprite2D.animation = "blue"
 	match firstColour:
-		RED:
+		"red":
 			$AnimatedSprite2D2.animation = "red"
-		GREEN:
+		"green":
 			$AnimatedSprite2D2.animation = "green"
-		BLUE:
+		"blue":
 			$AnimatedSprite2D2.animation = "blue"
 
 
@@ -47,15 +44,22 @@ func _on_area_2d_body_entered(body):
 			$Area2D.set_collision_mask_value(2, 0)
 			$AnimatedSprite2D.hide()
 			match colour:
-				RED:
+				"red":
 					$deathParticles.color = Color(1, 0, 0)
-				GREEN:
+				"green":
 					$deathParticles.color = Color(0, 1, 0)
-				BLUE:
+				"blue":
 					$deathParticles.color = Color(0, 0, 1)
 			$deathParticles.emitting = true
+			Global.score += 10
+		elif colour == body.colour:
+			$AnimatedSprite2D2.hide()
+			colour = secondColour
+			lastColour = true
+			Global.score += 5
 		else:
 			linear_velocity *= 2
+			print(str(colour) + "\n" + str(body.colour))
 		body.queue_free()
 	elif body.is_in_group("player"):
 		body.kill()

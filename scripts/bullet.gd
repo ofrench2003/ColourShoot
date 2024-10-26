@@ -1,28 +1,27 @@
 extends RigidBody2D
 
-enum {RED, GREEN, BLUE}
 
 var speed = 10000
 var velocity = Vector2()
-@export var colour = RED
+var colour
 
 
 func _ready():
 	$AnimatedSprite2D.hide()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	match colour:
-		RED:
+		"red":
 			$AnimatedSprite2D.animation = "red"
 			$AnimatedSprite2D.show()
-		GREEN:
+		"green":
 			$AnimatedSprite2D.animation = "green"
 			$AnimatedSprite2D.show()
-		BLUE:
+		"blue":
 			$AnimatedSprite2D.animation = "blue"
 			$AnimatedSprite2D.show()
 
 
-func _on_VisibilityNotifier2D_viewport_exited(viewport):
+func _on_VisibilityNotifier2D_viewport_exited(_viewport):
 	queue_free()

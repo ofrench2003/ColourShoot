@@ -1,20 +1,12 @@
 extends CharacterBody2D
 
-enum {RED,GREEN,BLUE}
 
 @export var bulletscene: PackedScene
 var dying = false
-var colour = RED
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var colour
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	#~~~~~~~~~~Directions~~~~~~~~~~#
 	var up = Input.is_action_pressed("up")
@@ -49,30 +41,22 @@ func _physics_process(delta):
 	
 	#changing colour
 	if Input.is_action_just_pressed("red") and not dying:
-		colour = RED
+		colour = "red"
 		fireweapon()
 	if Input.is_action_just_pressed("blue") and not dying:
-		colour = BLUE
+		colour = "blue"
 		fireweapon()
 	if Input.is_action_just_pressed("green") and not dying:
-		colour = GREEN
+		colour = "green"
 		fireweapon()
 
-	if Input.is_action_just_pressed("swap") and not dying:
-		match colour:
-			RED:
-				colour = GREEN
-			GREEN:
-				colour = BLUE
-			BLUE:
-				colour = RED
 	
 	match colour:
-		RED:
+		"red":
 			$AnimatedSprite2D.animation = "red"
-		GREEN:
+		"green":
 			$AnimatedSprite2D.animation = "green"
-		BLUE:
+		"blue":
 			$AnimatedSprite2D.animation = "blue"
 	
 	#restarting
@@ -99,11 +83,11 @@ func kill():
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(3, false)
 	match colour:
-		RED:
+		"red":
 			$deathParticles.color = Color(1, 0, 0)
-		GREEN:
+		"green":
 			$deathParticles.color = Color(0, 1, 0)
-		BLUE:
+		"blue":
 			$deathParticles.color = Color(0, 0, 1)
 	$deathParticles.emitting = true
 	

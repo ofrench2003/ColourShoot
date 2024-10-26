@@ -1,21 +1,20 @@
 extends RigidBody2D
 
-enum {RED, GREEN, BLUE}
 
-@export var colour = RED
+var colour
 
 
 func _ready():
 	$AnimatedSprite2D.show()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	match colour:
-		RED:
+		"red":
 			$AnimatedSprite2D.animation = "red"
-		GREEN:
+		"green":
 			$AnimatedSprite2D.animation = "green"
-		BLUE:
+		"blue":
 			$AnimatedSprite2D.animation = "blue"
 
 
@@ -28,13 +27,14 @@ func _on_area_2d_body_entered(body):
 			$Area2D.set_collision_mask_value(2, 0)
 			$AnimatedSprite2D.hide()
 			match colour:
-				RED:
+				"red":
 					$deathParticles.color = Color(1, 0, 0)
-				GREEN:
+				"green":
 					$deathParticles.color = Color(0, 1, 0)
-				BLUE:
+				"blue":
 					$deathParticles.color = Color(0, 0, 1)
 			$deathParticles.emitting = true
+			Global.score += 5
 		else:
 			linear_velocity *= 2
 		body.queue_free()
