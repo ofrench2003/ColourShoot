@@ -1,13 +1,19 @@
 extends Node
 
 var score : int
+var highscore : int
+
+func getHighscore():
+	if FileAccess.file_exists("user://highscore.save"):
+		var file = FileAccess.open("user://highscore.save", FileAccess.READ)
+		highscore = file.get_var()
+		file.close()
+	else:
+		highscore = 0
+	return highscore
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
+func updateHighscore(newScore):
+	var file = FileAccess.open("user://highscore.save", FileAccess.WRITE)
+	file.store_var(newScore)
+	file.close()

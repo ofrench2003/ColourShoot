@@ -21,6 +21,7 @@ func _ready():
 	Global.score = 0
 	$UIControl/restartLabel.hide()
 	$UIControl/controlLabel.hide()
+	$UIControl/highscoreLabel.hide()
 
 
 func _physics_process(_delta):
@@ -82,3 +83,10 @@ func _on_player_end_game():
 	await get_tree().create_timer(0.5).timeout
 	$UIControl/restartLabel.show()
 	$UIControl/controlLabel.show()
+	var highscore = Global.getHighscore()
+	if highscore < Global.score:
+		Global.updateHighscore(Global.score)
+		$UIControl/highscoreLabel.text = "New Highscore: " + str(Global.score)
+	else:
+		$UIControl/highscoreLabel.text = "Highscore: " + str(highscore)
+	$UIControl/highscoreLabel.show()
