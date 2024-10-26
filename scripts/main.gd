@@ -19,6 +19,8 @@ var ballcolour = ["red", "green", "blue"]
 func _ready():
 	randomize()
 	Global.score = 0
+	$UIControl/restartLabel.hide()
+	$UIControl/controlLabel.hide()
 
 
 func _physics_process(_delta):
@@ -29,6 +31,9 @@ func _physics_process(_delta):
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+	
+	
+	$UIControl/scoreLabel.text = "Score: " + str(Global.score)
 
 
 func _on_spawntimer_timeout():
@@ -71,3 +76,9 @@ func _on_progression_timer_timeout():
 	spawnTime -= 0.1
 	enemySpeed += 5
 	squareChance += 5
+
+
+func _on_player_end_game():
+	await get_tree().create_timer(0.5).timeout
+	$UIControl/restartLabel.show()
+	$UIControl/controlLabel.show()

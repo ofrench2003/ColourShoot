@@ -5,6 +5,7 @@ extends CharacterBody2D
 var dying = false
 var colour
 
+signal endGame
 
 func _physics_process(_delta):
 	
@@ -78,6 +79,7 @@ func fireweapon():
 	bullet.linear_velocity = velocity2.rotated(direction)
 
 func kill():
+	endGame.emit()
 	dying = true
 	$AnimatedSprite2D.hide()
 	set_collision_layer_value(1, false)
