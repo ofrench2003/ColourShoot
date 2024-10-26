@@ -1,0 +1,176 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbamt5ofwcgpo"]
+
+[ext_resource type="Script" path="res://scenes/title.gd" id="1_nor20"]
+
+[sub_resource type="Environment" id="Environment_3qlgv"]
+background_mode = 3
+glow_enabled = true
+glow_levels/1 = 5.75
+glow_levels/4 = 1.8
+glow_levels/5 = 3.16
+glow_bloom = 1.0
+glow_blend_mode = 4
+glow_hdr_threshold = 0.0
+
+[sub_resource type="Animation" id="Animation_ik3nb"]
+resource_name = "fadeIn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/fadeColour:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_014vo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/fadeColour:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_w3xyb"]
+resource_name = "fadeOut"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/fadeColour:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7bg5x"]
+_data = {
+"RESET": SubResource("Animation_014vo"),
+"fadeIn": SubResource("Animation_ik3nb"),
+"fadeOut": SubResource("Animation_w3xyb")
+}
+
+[node name="title" type="Node2D"]
+script = ExtResource("1_nor20")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3qlgv")
+
+[node name="Control" type="Control" parent="."]
+z_index = 10
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="titleLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -399.5
+offset_top = -245.5
+offset_right = 399.5
+offset_bottom = -70.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 128
+text = "Colour Shoot"
+
+[node name="playButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = 14.5
+offset_right = 122.0
+offset_bottom = 89.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "Play"
+
+[node name="controlsButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = 109.5
+offset_right = 94.5
+offset_bottom = 162.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Controls"
+
+[node name="quitButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = 182.5
+offset_right = 63.0
+offset_bottom = 235.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_hover_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Quit :("
+
+[node name="creditsLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+text = "Made by Oliver French"
+
+[node name="fadeColour" type="ColorRect" parent="Control"]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="fader" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7bg5x")
+}
+
+[connection signal="pressed" from="Control/playButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Control/quitButton" to="." method="_on_quit_button_pressed"]
