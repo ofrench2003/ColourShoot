@@ -34,19 +34,21 @@ animations = [{
 }]
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
+rotation = 1.5708
 collision_mask = 524292
 script = ExtResource("4")
 bulletscene = ExtResource("5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(2, 0)
+position = Vector2(2, -1.78814e-07)
 rotation = 1.5708
 sprite_frames = SubResource("1")
 animation = &"red"
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(2, -1.78814e-07)
 rotation = 1.5708
-polygon = PackedVector2Array(14.8482, 9.8802, -15.6113, 10.1451, 0.0157318, -16.6064)
+polygon = PackedVector2Array(17, 14, -17, 14, 0.0157318, -16.6064)
 
 [node name="bulletposition" type="Marker2D" parent="."]
 position = Vector2(16, 0)

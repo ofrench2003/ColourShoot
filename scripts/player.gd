@@ -7,7 +7,9 @@ var colour
 
 signal endGame
 
-func _physics_process(_delta):
+var rotationSpeed = 30
+
+func _physics_process(delta):
 	
 	#~~~~~~~~~~Directions~~~~~~~~~~#
 	var up = Input.is_action_pressed("up")
@@ -17,22 +19,41 @@ func _physics_process(_delta):
 	
 	if up and not dying:
 		if left and not right:
-			look_at(get_parent().get_node("points/point1").position)
+			rotation = lerp_angle(rotation, (get_parent().get_node("points/point1").position - global_position).angle(), rotationSpeed * delta)
 		elif right and not left:
-			look_at(get_parent().get_node("points/point3").position)
+			rotation = lerp_angle(rotation, (get_parent().get_node("points/point3").position - global_position).angle(), rotationSpeed * delta)
 		else:
-			look_at(get_parent().get_node("points/point2").position)
+			rotation = lerp_angle(rotation, (get_parent().get_node("points/point2").position - global_position).angle(), rotationSpeed * delta)
 	if down and not dying:
 		if left and not right:
-			look_at(get_parent().get_node("points/point7").position)
+			rotation = lerp_angle(rotation, (get_parent().get_node("points/point7").position - global_position).angle(), rotationSpeed * delta)
 		elif right and not left:
-			look_at(get_parent().get_node("points/point5").position)
+			rotation = lerp_angle(rotation, (get_parent().get_node("points/point5").position - global_position).angle(), rotationSpeed * delta)
 		else:
-			look_at(get_parent().get_node("points/point6").position)
+			rotation = lerp_angle(rotation, (get_parent().get_node("points/point6").position - global_position).angle(), rotationSpeed * delta)
 	if left and not up and not down and not dying:
-		look_at(get_parent().get_node("points/point8").position)
+		rotation = lerp_angle(rotation, (get_parent().get_node("points/point8").position - global_position).angle(), rotationSpeed * delta)
 	if right and not up and not down and not dying:
-		look_at(get_parent().get_node("points/point4").position)
+		rotation = lerp_angle(rotation, (get_parent().get_node("points/point4").position - global_position).angle(), rotationSpeed * delta)
+
+	#if up and not dying:
+		#if left and not right:
+			#look_at(get_parent().get_node("points/point1").position)
+		#elif right and not left:
+			#look_at(get_parent().get_node("points/point3").position)
+		#else:
+			#look_at(get_parent().get_node("points/point2").position)
+	#if down and not dying:
+		#if left and not right:
+			#look_at(get_parent().get_node("points/point7").position)
+		#elif right and not left:
+			#look_at(get_parent().get_node("points/point5").position)
+		#else:
+			#look_at(get_parent().get_node("points/point6").position)
+	#if left and not up and not down and not dying:
+		#look_at(get_parent().get_node("points/point8").position)
+	#if right and not up and not down and not dying:
+		#look_at(get_parent().get_node("points/point4").position)
 	
 	
 	

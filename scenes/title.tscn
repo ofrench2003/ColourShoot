@@ -12,6 +12,21 @@ glow_bloom = 1.0
 glow_blend_mode = 4
 glow_hdr_threshold = 0.0
 
+[sub_resource type="Animation" id="Animation_014vo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/fadeColour:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_ik3nb"]
 resource_name = "fadeIn"
 length = 0.5
@@ -26,21 +41,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_014vo"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/fadeColour:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_w3xyb"]
@@ -163,6 +163,7 @@ grow_vertical = 0
 text = "Made by Oliver French"
 
 [node name="fadeColour" type="ColorRect" parent="Control"]
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
@@ -173,4 +174,5 @@ libraries = {
 }
 
 [connection signal="pressed" from="Control/playButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Control/controlsButton" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="Control/quitButton" to="." method="_on_quit_button_pressed"]
