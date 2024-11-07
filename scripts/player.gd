@@ -36,26 +36,6 @@ func _physics_process(delta):
 	if right and not up and not down and not dying:
 		rotation = lerp_angle(rotation, (get_parent().get_node("points/point4").position - global_position).angle(), rotationSpeed * delta)
 
-	#if up and not dying:
-		#if left and not right:
-			#look_at(get_parent().get_node("points/point1").position)
-		#elif right and not left:
-			#look_at(get_parent().get_node("points/point3").position)
-		#else:
-			#look_at(get_parent().get_node("points/point2").position)
-	#if down and not dying:
-		#if left and not right:
-			#look_at(get_parent().get_node("points/point7").position)
-		#elif right and not left:
-			#look_at(get_parent().get_node("points/point5").position)
-		#else:
-			#look_at(get_parent().get_node("points/point6").position)
-	#if left and not up and not down and not dying:
-		#look_at(get_parent().get_node("points/point8").position)
-	#if right and not up and not down and not dying:
-		#look_at(get_parent().get_node("points/point4").position)
-	
-	
 	
 	#shooting
 	if Input.is_action_just_pressed("shoot") and not dying:
@@ -83,7 +63,9 @@ func _physics_process(delta):
 	
 	#restarting
 	if Input.is_action_just_pressed("restart") and dying:
-		get_tree().reload_current_scene()
+		AudioServer.remove_bus_effect(0, 0)
+		get_parent().get_node_or_null("musicBackground").stop()
+		get_tree().change_scene_to_file("res://scenes/main.tscn")
 	
 func fireweapon():
 	
@@ -98,6 +80,7 @@ func fireweapon():
 	get_parent().add_child(bullet)
 	bullet.position = Vector2(bulletloc, bullety)
 	bullet.linear_velocity = velocity2.rotated(direction)
+	$audioShoot.play()
 
 func kill():
 	endGame.emit()
@@ -113,6 +96,7 @@ func kill():
 		"blue":
 			$deathParticles.color = Color(0, 0, 1)
 	$deathParticles.emitting = true
+	$audioDeath.play()
 	
 
 

@@ -35,8 +35,10 @@ func _on_area_2d_body_entered(body):
 					$deathParticles.color = Color(0, 0, 1)
 			$deathParticles.emitting = true
 			Global.score += 5
+			$audioDeath.play()
 		else:
 			linear_velocity *= 2
+			$audioSpeedUp.play()
 		body.queue_free()
 	elif body.is_in_group("player"):
 		body.kill()

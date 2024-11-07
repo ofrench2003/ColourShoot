@@ -19,10 +19,12 @@ func _physics_process(_delta):
 
 
 func _on_quit_button_pressed():
+	$audioBoop.play()
 	get_tree().quit()
 
 
 func _on_play_button_pressed():
+	$audioBoop.play()
 	$Control/fadeColour.show()
 	$fader.play("fadeOut")
 	await get_tree().create_timer(0.5).timeout
@@ -30,4 +32,5 @@ func _on_play_button_pressed():
 
 
 func _on_controls_button_pressed():
+	$audioBoop.play()
 	get_tree().change_scene_to_file("res://scenes/controls.tscn")

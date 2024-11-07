@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bs502v65r6atd"]
+[gd_scene load_steps=9 format=3 uid="uid://bs502v65r6atd"]
 
 [ext_resource type="Texture2D" uid="uid://dn6mosa42em74" path="res://assets/circle/green.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://coandqvhu8yy5" path="res://assets/circle/red.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://bbqmmt1f1fscd" path="res://assets/circle/blue.png" id="3"]
 [ext_resource type="Script" path="res://scripts/circle.gd" id="4"]
+[ext_resource type="AudioStream" uid="uid://dmphk0k7utjyt" path="res://assets/sounds/enemyDeath.wav" id="5_0atii"]
+[ext_resource type="AudioStream" uid="uid://8v32dfdwt2xo" path="res://assets/sounds/wrongShot.wav" id="6_ync2m"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -67,6 +69,14 @@ initial_velocity_max = 150.0
 angle_min = -720.0
 scale_amount_min = 2.0
 scale_amount_max = 4.0
+
+[node name="audioDeath" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_0atii")
+bus = &"enemy"
+
+[node name="audioSpeedUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ync2m")
+bus = &"enemy"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="finished" from="deathParticles" to="." method="_on_death_particles_finished"]

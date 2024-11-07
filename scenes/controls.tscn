@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmnj2vlxdms85"]
+[gd_scene load_steps=4 format=3 uid="uid://cmnj2vlxdms85"]
 
 [ext_resource type="Script" path="res://scenes/controls.gd" id="1_ntnrg"]
+[ext_resource type="AudioStream" uid="uid://bc5rcfc1p0bpa" path="res://assets/sounds/menuClick.wav" id="2_nipio"]
 
 [sub_resource type="Environment" id="Environment_j7ld3"]
 background_mode = 3
@@ -143,5 +144,8 @@ text = "- Quit Game"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_j7ld3")
+
+[node name="audioBoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_nipio")
 
 [connection signal="pressed" from="Control/backButton" to="." method="_on_back_button_pressed"]

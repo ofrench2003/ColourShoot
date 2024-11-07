@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbamt5ofwcgpo"]
+[gd_scene load_steps=8 format=3 uid="uid://bbamt5ofwcgpo"]
 
 [ext_resource type="Script" path="res://scenes/title.gd" id="1_nor20"]
+[ext_resource type="AudioStream" uid="uid://bc5rcfc1p0bpa" path="res://assets/sounds/menuClick.wav" id="2_p7aps"]
 
 [sub_resource type="Environment" id="Environment_3qlgv"]
 background_mode = 3
@@ -172,6 +173,9 @@ color = Color(0, 0, 0, 1)
 libraries = {
 "": SubResource("AnimationLibrary_7bg5x")
 }
+
+[node name="audioBoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_p7aps")
 
 [connection signal="pressed" from="Control/playButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Control/controlsButton" to="." method="_on_controls_button_pressed"]

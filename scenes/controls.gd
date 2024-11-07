@@ -12,4 +12,5 @@ func _physics_process(_delta):
 
 
 func _on_back_button_pressed():
+	$audioBoop.play()
 	get_tree().change_scene_to_file("res://scenes/title.tscn")

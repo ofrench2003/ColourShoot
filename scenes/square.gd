@@ -51,19 +51,20 @@ func _on_area_2d_body_entered(body):
 				"blue":
 					$deathParticles.color = Color(0, 0, 1)
 			$deathParticles.emitting = true
+			$audioDeath.play()
 			Global.score += 10
 		elif colour == body.colour:
 			$AnimatedSprite2D2.hide()
 			colour = secondColour
 			lastColour = true
 			Global.score += 5
+			$audioCheck.play()
 		else:
 			linear_velocity *= 2
-			print(str(colour) + "\n" + str(body.colour))
+			$audioSpeedUp.play()
 		body.queue_free()
 	elif body.is_in_group("player"):
 		body.kill()
 
 func _on_death_particles_finished():
 	queue_free()
-
